@@ -1,4 +1,4 @@
-local function fold()
+local function setup()
 	local file_type = vim.bo.filetype
 	if file_type == "javascript" or file_type == "typescript" then
 		local lines = vim.fn.getline(1, "$")
@@ -26,5 +26,5 @@ local function fold()
 end
 
 return {
-	fold = fold,
+	setup = setup,
 }
