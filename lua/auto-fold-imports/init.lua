@@ -1,4 +1,4 @@
-local function setup()
+local function fold()
 	local file_type = vim.bo.filetype
 	if file_type == "javascript" or file_type == "typescript" then
 		local lines = vim.fn.getline(1, "$")
@@ -25,6 +25,17 @@ local function setup()
 	end
 end
 
-return {
-	setup = setup,
-}
+local M = {}
+
+function M.setup()
+	local augroup = vim.api.nvim_create_augroup("AutoFoldImports", {})
+	vim.api.nvim_clear_autocmds({ group = augroup })
+	vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+		group = augroup,
+		callback = function()
+			fold()
+		end,
+	})
+end
+
+return M
